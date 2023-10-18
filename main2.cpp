@@ -37,10 +37,6 @@ class SparseMatrixCOO: public SparseMatrix{
     SparseMatrix(input_values, input_columns),    rows(input_rows){};
     
 
-
-
-
-    
     int n_row( ){
         auto max = std::max_element(rows.begin(), rows.end());
         return *max+1; // qui ho messo un puntatore se no non funzionava. Perché? 
@@ -48,59 +44,36 @@ class SparseMatrixCOO: public SparseMatrix{
 
     
     
-  // const double &operator()(const unsigned int n, const unsigned int m) const {
-   //      std::cout << "const version" << std::endl;
+    const double operator()(const  int n, const  int m) const {
 
-         /*
         //throw an error
-        if (n>n_row()){
+        auto max_row = std::max_element(rows.begin(), rows.end());
+        auto max_col = std::max_element(columns.begin(), columns.end());
+
+        if (n>*max_row || m>*max_col){
             std::cout << "Index out of range";
         }
+        
 
-        */
-
-
-        //cose serie
-   /*     int numero;
-        for (int i; i=0; i++){
+        //read
+        double num = 0;
+        for (int i=0; i<size-1; i++){
             if( rows[i]==n){
                 if( columns[i]==m){
-                    numero= values[i];
+                    num=values[i];
                 }
             }
-            else{
-                return 0;
-            }
-
         }
+
+        return num;
     }
+    
    
-*/
+
     };
 
 
 
- /*   double read(int n,int m){
-        //throw an error
-        if (n>n_row()){
-            std::cout << "Index out of range";
-        }
-        //cose serie
-        int numero;
-        for (int i; i=0; i++){
-            if( rows[i]==n){
-                if( columns[i]==m){
-                    numero= values[i];
-                }
-            }
-            else{
-                return 0;
-            }
-
-        }
-    }
-
-*/
 
 
 class SparseMatrixCSR: public SparseMatrix{ 
@@ -126,6 +99,9 @@ int main(){
     std::vector<int>  input_rows= { 0, 0, 1,   1, 3, 3};
     std::vector<int> input_columns={ 2, 4, 2,   4, 1, 3};
     SparseMatrixCOO M( input_rows, input_values, input_columns);
+
+    const SparseMatrixCOO &a_const = M;
+    std::cout << a_const(10,2) << std::endl;
     
         int x = M.n_col();
     std::cout<< "Il numero di col è "<<x<<std::endl;
@@ -133,6 +109,7 @@ int main(){
 
         int y = M.n_row();
     std::cout<< "Il numero di righe è "<<y<<std::endl;
+
 
 
     //    double a=M(0,2);
