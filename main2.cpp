@@ -67,12 +67,53 @@ class SparseMatrixCOO: public SparseMatrix{
 
         return num;
     }
-    
-   
 
-    };
+    // Writing operator.
+    double &operator()(const  int n, const  int m) {
+        auto max_row = std::max_element(rows.begin(), rows.end());
+        auto max_col = std::max_element(columns.begin(), columns.end());
 
+        if (n>*max_row || m>*max_col){
+            throw std::invalid_argument("Index out of range");    
+        }
+        
+        //read
+        for (int i=0; i<size-1; i++){
+            if( rows[i]==n){
+                if( columns[i]==m){
+                    return values[i];
+                }
+            }
+        }
+    }
 
+    //Matrix-vector product
+    std::vector <double> operator *(std::vector<double> &x) const{
+        std::vector<double> y;
+            int i;
+            double elem, zero;
+            while(i<size){
+                if(i==0){
+                    elem=x[columns[i]]*values[i];
+                }
+                else if(rows[i]==rows[i-1]){
+                    elem+=x[columns[i]]*values[i];
+                }
+                else if(rows[i]==rows[i-1]+1){
+                    y.push_back(elem);
+                    elem=x[columns[i]]*values[i];
+                }
+                else if(rows[i]!=rows[i-1]+1){
+                    y.push_back(elem);
+                    elem=0.0;
+                    y.push_back(elem);
+                    elem+=x[columns[i]]*values[i];
+                }
+                i++;
+            }
+        return y;
+    }  
+};
 
 
 
@@ -99,19 +140,19 @@ int main(){
     std::vector<int>  input_rows= { 0, 0, 1,   1, 3, 3};
     std::vector<int> input_columns={ 2, 4, 2,   4, 1, 3};
     SparseMatrixCOO M( input_rows, input_values, input_columns);
-
-    const SparseMatrixCOO &a_const = M;
-    std::cout << a_const(10,2) << std::endl;
     
-        int x = M.n_col();
+    const SparseMatrixCOO &a_const = M;
+    std::cout << a_const(1,4) << std::endl;
+    
+   // const double h = M(0,2);          // non-const version.
+    M(0,2)=3;                       // non-const version.
+    std::cout << M(0,2) << std::endl; // non-const version.
+
+  /*      int x = M.n_col();
     std::cout<< "Il numero di col è "<<x<<std::endl;
-
-
         int y = M.n_row();
     std::cout<< "Il numero di righe è "<<y<<std::endl;
-
-
-
+    */
     //    double a=M(0,2);
     //std::cout<< "leggi l'elemento M(0,2)"<<a<std::endl;
     return 0;
