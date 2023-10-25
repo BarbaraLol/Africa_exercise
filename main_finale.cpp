@@ -54,5 +54,13 @@ int main(){
     std::cout << "\n";
     std::vector<double> y_CSR = M_CSR*x;
 
+    // Switch functions
+
+    SparseMatrixCSR M2 =M_COO.switch_toCSR();
+    M2.PrintMatrix();
+
+    SparseMatrixCOO M3 = M_CSR.switch_toCOO();
+    M3.PrintMatrix();
+
     return 0;
 }
