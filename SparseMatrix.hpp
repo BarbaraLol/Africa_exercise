@@ -53,6 +53,11 @@ class SparseMatrix {
 
     virtual void PrintMatrix(){};
 
+    SparseMatrixCOO switch_toCOO(){
+    };
+
+    SparseMatrixCSR switch_toCSR(){};
+
 
 
 };
@@ -87,7 +92,7 @@ class SparseMatrixCOO: public SparseMatrix{
 
 
 class SparseMatrixCSR: public SparseMatrix{ 
-    private:
+    protected:
     std::vector<int> rows_idx; 
 
     public:
