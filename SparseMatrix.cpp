@@ -3,6 +3,7 @@
 /*COSA MANCA DA FARE:
 - Switch da COO a CSR;
 - Copy constructor;
+- bash script
 - Sistemare i commenti;
 - input da terminale (?);
 */
