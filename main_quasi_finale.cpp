@@ -176,35 +176,35 @@ class SparseMatrixCOO: public SparseMatrix{
         }
     }
 
-std::vector<int> COOtoCSR_converter(){
-        std::vector<int> row_idx;
-        //I need the number of the rows and the size of number of non-zero element inside the sparse amtrix
-        const int numRows=this->n_row();
-
-        row_idx.resize(numRows+1);
-
-        row_idx[0]=0;
-        unsigned int count=0;
-
-        for(unsigned int i=0; i<size; i++){
-            for(unsigned int j=0; j<size; j++){
-                if(rows[j]==i){
-                    count++;
-                    row_idx[i+1]=count;
-                }
-                //case in which the row has all zero elements
-                else if(rows[j]!=i){
-                    row_idx[i+1]=count;
+    std::vector<int> COOtoCSR_converter(){
+            std::vector<int> row_idx;
+            //I need the number of the rows and the size of number of non-zero element inside the sparse amtrix
+            const int numRows=this->n_row();
+    
+            row_idx.resize(numRows+1);
+    
+            row_idx[0]=0;
+            unsigned int count=0;
+    
+            for(unsigned int i=0; i<size; i++){
+                for(unsigned int j=0; j<size; j++){
+                    if(rows[j]==i){
+                        count++;
+                        row_idx[i+1]=count;
+                    }
+                    //case in which the row has all zero elements
+                    else if(rows[j]!=i){
+                        row_idx[i+1]=count;
+                    }
                 }
             }
+    
+            /*for(int i=0; i<numRows+1; i++){
+                std::cout<<row_idx[i]<<"\t";
+            }
+            std::cout<<std::endl;*/
+            return row_idx;
         }
-
-        for(int i=0; i<numRows+1; i++){
-            std::cout<<row_idx[i]<<"\t";
-        }
-        std::cout<<std::endl;
-        return row_idx;
-    }
 };
 
 
@@ -330,9 +330,9 @@ class SparseMatrixCSR: public SparseMatrix{
             }
         }
 
-        for(int i=0; i<rows_coordinates.size(); i++){
+        /*for(int i=0; i<rows_coordinates.size(); i++){
             std::cout<<rows_coordinates[i]<<"\t";
-        }
+        }*/
 
         return rows_coordinates;
     }
