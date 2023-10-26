@@ -9,10 +9,10 @@
 */
 
 SparseMatrix::SparseMatrix (
-    const std::vector <double> input_values,  const std::vector <int> input_columns)  :  values(input_values), 
+    const std::vector <double> &input_values,  const std::vector <int> &input_columns)  :  values(input_values), 
     columns(input_columns){};
 
-SparseMatrixCOO::SparseMatrixCOO(const std::vector <int> input_rows, const std::vector <double> input_values,  const std::vector <int> input_columns): 
+SparseMatrixCOO::SparseMatrixCOO(const std::vector <int> &input_rows, const std::vector <double> &input_values,  const std::vector <int> &input_columns): 
     SparseMatrix(input_values, input_columns), rows(input_rows){};
     
 const double SparseMatrixCOO::operator()(const  int n, const  int m) const {
@@ -194,7 +194,7 @@ SparseMatrixCOO SparseMatrix::switchtoCOO(){
 }
 
 
-SparseMatrixCSR::SparseMatrixCSR(const std::vector <int> input_rows, const std::vector <double> input_values,  const std::vector <int> input_columns): 
+SparseMatrixCSR::SparseMatrixCSR(const std::vector <int> &input_rows, const std::vector <double> &input_values,  const std::vector <int> &input_columns): 
     SparseMatrix(input_values, input_columns),    rows_idx(input_rows){};
 
     
