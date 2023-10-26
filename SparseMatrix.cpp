@@ -6,6 +6,7 @@
 - bash script
 - Sistemare i commenti;
 - input da terminale (?);
+-parentesone
 */
 
 SparseMatrix::SparseMatrix (
