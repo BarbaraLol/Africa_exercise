@@ -13,7 +13,7 @@ class SparseMatrix {
 
     public:
     //Constructor
-    SparseMatrix( const std::vector <double> input_values,  const std::vector <int> input_columns);
+    SparseMatrix( const std::vector <double> &input_values,  const std::vector <int> &input_columns);
 
     //Copy Constructor
     SparseMatrix( SparseMatrix &other){
@@ -68,7 +68,7 @@ class SparseMatrixCOO: public SparseMatrix{
     std::vector<int> rows;
 
     public:
-    SparseMatrixCOO(const std::vector <int> input_rows, const std::vector <double> input_values,  const std::vector <int> input_columns);
+    SparseMatrixCOO(const std::vector <int> &input_rows, const std::vector <double> &input_values,  const std::vector <int> &input_columns);
     
     // Number of rows 
     unsigned int n_row() const override {
@@ -96,7 +96,7 @@ class SparseMatrixCSR: public SparseMatrix{
     std::vector<int> rows_idx; 
 
     public:
-    SparseMatrixCSR(const std::vector <int> input_rows, const std::vector <double> input_values,  const std::vector <int> input_columns);
+    SparseMatrixCSR(const std::vector <int> &input_rows, const std::vector <double> &input_values,  const std::vector <int> &input_columns);
 
     // Number of rows
     unsigned int n_row()const override;
