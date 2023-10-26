@@ -12,7 +12,7 @@ std::string choose;
 std::cout << "Choose the way you want to implement your SparseMatrix. Type COO or CSR: ";
 std::cin >> choose;
 std::cin.ignore();
-if (choose == "COO") {
+if (choose == "COO" || choose == "coo") {
 
     // Enter the values
     std::cout
@@ -61,7 +61,7 @@ if (choose == "COO") {
     break;
 }
 
-else if (choose == "CSR") {
+else if (choose == "CSR" || choose == "csr") {
     // Enter the values
     std::cout
         << "Enter a set of numbers separated by spaces: ";
