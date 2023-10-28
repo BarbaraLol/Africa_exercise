@@ -171,34 +171,37 @@ SparseMatrixCSR::~SparseMatrixCSR() {
     delete[] columns;
 }
 
-    
+//NUMBER OF ROWS    
 unsigned int SparseMatrixCSR::n_row()const{
         return rows_idx.size()-1; 
 }
 
+//PRINTING FUNCTION
 void SparseMatrixCSR::PrintMatrix() {
     int numRows = n_row(); 
+
+    //if the matrix is empty
     if (numRows <= 0) {
-        //if  the matrix is empty
         std::cout << "Sparse matrix is empty" << std::endl;
         return;
     }
     int numCols = n_col();
+    
     for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numCols; col++) {
             int index = -1;
-            // Trova l'indice in cui si trova il valore nella colonna corrente
             for (int i = rows_idx[row]; i < rows_idx[row + 1]; ++i) {
+                //repete the following instruction a number of time equal to the non zero element in the row 
                 if (columns[i] == col) {
                     index = i;
                     // break;
                 }
             }
             if (index != -1) {
-                // Valore non nullo nella colonna
+                // Non zero element at the position (row,col)
                 std::cout << values[index] << "\t";
             } else {
-                // Valore nullo
+                // Zero element
                 std::cout << "0\t";
             }
         }
@@ -206,7 +209,7 @@ void SparseMatrixCSR::PrintMatrix() {
     }
 }
 
-//reading operator
+//READING OPERATOR
 const double SparseMatrixCSR::operator()(const  int n, const  int m) const {
     int max_row=this->n_row();
     int max_col=this->n_col();
