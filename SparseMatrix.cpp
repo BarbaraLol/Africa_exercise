@@ -9,12 +9,12 @@
 -parentesone
 */
 
-//Constructor
+//BASE CLASS CONSTRUCTOR
 //SparseMatrix::SparseMatrix(const std::vector <double>& input_values,  const std::vector <int>& input_columns)  :  values(input_values), columns(input_columns) {}
 //Destructor for total cleanup
 SparseMatrix::~SparseMatrix(){}
 
-
+//COO SUBCLASS CONSTRUCTOR
 SparseMatrixCOO::SparseMatrixCOO(const std::vector <int>& input_rows, const std::vector <double>& input_values,  const std::vector <int>& input_columns): SparseMatrix(input_values, input_columns), rows(input_rows){
     values = new double[input_values.size()];
     columns = new int[input_columns.size()];
@@ -73,25 +73,28 @@ double &SparseMatrixCOO::operator()(const  int n, const  int m){
 
 // MATRIX-VECTOR PRODUCT
 std::vector<double> SparseMatrixCOO::operator *(const std::vector<double>& x){
-        
+    
+        //throw an error if the dimensions doesn't match
         if (x.size() != n_col()){
             throw std::invalid_argument("Incompatible dimension ");
             return std::vector<double>();
         }
 
-        std::vector<double> y(n_row(), 0.0);
-
+        std::vector<double> y(n_row(), 0.0);    //vector of the needed dimentions
+    
+        //execute the product
         for (int i = 0; i < size; i++){
             y[rows[i]] += values[i] * x[columns[i]];
         }
-
+    
+        //print the result
         for (unsigned int i =0; i<n_row(); i++){
             std::cout << y[i] << std::endl;
         }
         return y;
 }
 
-// Matrix printing function
+// PRINTING FUNCTION
 void SparseMatrixCOO::PrintMatrix(){
         int i=0, num_rows=n_row(), num_cols=n_col();
         std::vector<int> cols_value;  
@@ -154,7 +157,7 @@ void SparseMatrixCOO::PrintMatrix(){
 }
 
 
-//Constructor for SparseMatrix CSR
+//CSR SUBCLASS CONSTRUCTOR
 SparseMatrixCSR::SparseMatrixCSR(const std::vector <int>& input_rows, const std::vector <double>& input_values,  const std::vector <int>& input_columns): SparseMatrix(input_values, input_columns), rows_idx(input_rows){
     values = new double[input_values.size()];
     columns = new int[input_columns.size()];
