@@ -2,9 +2,25 @@ GROUP MEMBERS:
 Sara Carpenè, Davide De Dominicis, Barbara Loletti
 
 WORK PARTITION:
-- structure of class and subclasses
+- structure of class and subclasses S/D
 - SparsematrixCOO:
-    - n row
-    - n_col
-    
+    - n row S/D
+    - n_col S/D
+    - print B
+    - write S/D
+    - read S/D
+    - product S/D
+    - convert to CSR B
+- SparsematrixCSR:
+    - n row S/D
+    - n_col S/D
+    - print S/D
+    - write S/D
+    - read S/D
+    - product S/D
+    - convert to CSR B
+- input from the terminal D
+- dinamic allocation of memory B
 
+SOURCES:
+StackOverflow
