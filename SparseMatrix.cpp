@@ -27,17 +27,18 @@ SparseMatrixCOO::~SparseMatrixCOO(){
     delete[] values;
     delete[] columns;
 }
-    
+
+//READING OPERATOR
 const double SparseMatrixCOO::operator()(const  int n, const  int m) const {
-        //throw an error
         int max_row=this->n_row();
         int max_col=this->n_col();
 
+        //throw an error if the index are out of bound
         if (n>max_row || m>max_col){
             throw std::invalid_argument("Index out of bound"); 
         }
-        
-        //read
+
+        //find the element
         double num = 0;
         for (int i=0; i<size-1; i++){
             if( rows[i]==n){
@@ -49,30 +50,30 @@ const double SparseMatrixCOO::operator()(const  int n, const  int m) const {
         return num;
 }
 
-// Writing operator.
+// WRITING OPERATOR
 double &SparseMatrixCOO::operator()(const  int n, const  int m){
         int max_row=this->n_row();
         int max_col=this->n_col();
+
+        //throw an error if the index are out of bound
         if (n>max_row || m>max_col){
             throw std::invalid_argument("Index out of bound");    
         }
-        //bool flag=false; //Probabilmente questo non serve 
-        //read
+
+        //find the element that has to be changed
         for (int i=0; i<size-1; i++){
             if( rows[i]==n){
                 if( columns[i]==m){
                     return values[i];
-                    //flag=true; //Probabilmente questo non serve 
                 }
             }
         }
-        //if(flag==false){ //Probabilmente questo non serve 
-            throw std::invalid_argument("You can only modify the non-zero elements of the sparse matrix");
-        //}
+        throw std::invalid_argument("You can only modify the non-zero elements of the sparse matrix");
 }
 
-// Matrix-vector product
+// MATRIX-VECTOR PRODUCT
 std::vector<double> SparseMatrixCOO::operator *(const std::vector<double>& x){
+        
         if (x.size() != n_col()){
             throw std::invalid_argument("Incompatible dimension ");
             return std::vector<double>();
