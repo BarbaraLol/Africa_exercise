@@ -213,11 +213,13 @@ void SparseMatrixCSR::PrintMatrix() {
 const double SparseMatrixCSR::operator()(const  int n, const  int m) const {
     int max_row=this->n_row();
     int max_col=this->n_col();
+
+    //throw an error if the index are out of bound
     if (n>max_row || m>max_col){
         throw std::invalid_argument("Index out of bound"); 
     }
         
-    //read
+    //find the element
     double num = 0;
     for (int i = rows_idx[n]; i < rows_idx[n + 1]; ++i) {
         if (columns[i] == m) {
@@ -228,15 +230,17 @@ const double SparseMatrixCSR::operator()(const  int n, const  int m) const {
     return num;
 }
 
-//writing operator
+//WRITING OPERATOR
 double &SparseMatrixCSR::operator()(const  int n, const  int m){
     int max_row=this->n_row();
     int max_col=this->n_col();
+    
+    //throw an error if the index are out of bound
     if (n>max_row || m>max_col){
         throw std::invalid_argument("Index out of bound"); 
     }
         
-    //read
+    //find the element
     for (int i = rows_idx[n]; i < rows_idx[n + 1]; ++i) {
         if (columns[i] == m) {
             return values[i];
@@ -245,7 +249,7 @@ double &SparseMatrixCSR::operator()(const  int n, const  int m){
     throw std::invalid_argument("You can only modify the non-zero elements of the sparse matrix");
 }
 
-//matrix vector
+//MATRIX-VECTOR PRODUCT
 std::vector <double> SparseMatrixCSR::operator*(const std::vector<double> &x) {
     const int numRows= this->n_row();
 
@@ -253,6 +257,7 @@ std::vector <double> SparseMatrixCSR::operator*(const std::vector<double> &x) {
         for (int row = 0; row < numRows; ++row) { 
             double elem=0.0;
                 for (int i = rows_idx[row]; i < rows_idx[row + 1]; ++i) {
+                        //fund the column index of the element value[i] to multiply it for the corresponding element of x
                         int col_index=columns[i];
                         elem+=values[i]*x[col_index];
                     }
