@@ -1,26 +1,70 @@
 GROUP MEMBERS:
 Sara Carpenè, Davide De Dominicis, Barbara Loletti
 
+PROGRAM DESCRIPTION:
+We implemented a base class named SparseMatrix, which is made by two std vectors: "values" and "columns".
+It has two subclasses: SparseMatrixCOO and SparseMatrixCSR.
+The first inherits from the base class the values and columns and requires to provide a vector of row indexes named "rows". The three vectors are buildt in a way
+that values[i] in in position (rows[i], columns[i]), rows indexes or columns indexes don't need to be in ascending order.
+The second inherits from the base class the values and columns and requires to provide a vector of row indexes named "rows_idx". "rows_idx" contains the cumulative
+number of elements in each row, rows_idx[0]=0 and row_idx[i+1]-rows_idx[i]= number of elements in the i-th row.
+Each subclass has the following methods:
+- "get_values", "get_columns", "get_rows" : return respectively the vectors of values, columns and rows.
+- "non_zeros": returns the number of non zero elements.
+- "n_col" : returns the number of columns.
+- "n_row": returns the number of rows.
+- const operator "()": reading opeator, returns the value in position (row, column)
+- non const operator "()": writing operator, lets you modify the element in (row, column), only if the element is contained in values.
+- operator "*": product operator, computes the matrix vector product.
+- "PrintMatrix": print the matrix.
+There are also two standalone function:
+- "ConvertToCSR": takes as an input a SparseMatrixCOO and converts it to a SparseMatrixCSR.
+- "ConvertToCOO": takes as an input a SparseMatrixCSR and converts it to a SparseMatrixCOO.
+
+
+CODE DESCRIPTION:
+Brief description of the files:
+-"SparseMatrix.cpp": source file
+-"SparseMatrix.hpp": header file
+-"main_with_input.cpp": main file. Asks the user to insert the elements, the indexes of columns and the indexes of rows to created the desired SparseMatrix,
+                    moreover let you choose wich operations perform.
+-"main_no_input.cpp": main file. It doesn't require to insert manually any input from the user. It shows you all the operations in a given matrix.
+We provided two different bash scripts:
+-"run_no_input.sh": runs the programs with "main_no_input.cpp"
+-"run_with_input.sh": runs the programwith "main_with_input.cpp"
+
+HOW TO RUN THE CODE:
+To run "run_with_no_input.sh" or "run_no_input.sh" you need to execute these commands in your terminal:
+
+chmod +x <name_of_the_bash>
+./<name_of_the_bash>
+
+
 WORK PARTITION:
-- structure of class and subclasses S/D
+
+- structure of class and subclasses Sara/Davide/Barbara
 - SparsematrixCOO:
-    - n row S/D
-    - n_col S/D
-    - print B
-    - write S/D
-    - read S/D
-    - product S/D
-    - convert to CSR B
+    - n row Sara/Davide
+    - n_col Davide
+    - non_zeros Sara
+    - print Barbara
+    - write Sara/Davide
+    - read Davide/Sara
+    - product Sara/Davide
+    - convert to CSR Barbara
 - SparsematrixCSR:
-    - n row S/D
-    - n_col S/D
-    - print S/D
-    - write S/D
-    - read S/D
-    - product S/D
-    - convert to CSR B
-- input from the terminal D
-- dinamic allocation of memory B
+    - n row Davide/Sara
+    - n_col Davide
+    - non_zeros Sara
+    - print Sara/Davide
+    - write Davide/Sara
+    - read Sara/Davide
+    - product Davide/Sara
+    - convert to CSR Barbara
+- input from the terminal Davide
+- dinamic allocation of memory Barbara
 
 SOURCES:
-StackOverflow
+StackOverflow.com
+cplusplus.com
+rollbar.com
